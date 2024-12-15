@@ -110,13 +110,13 @@ def transfer_money():
         from app.services import transfer
         transfer(sender_account_number, receiver_account_number, amount)
         
-        return redirect(url_for("app_routes.list_accounts"))
+        return redirect(url_for("app_routes.view_account"))
     except ValueError as e:
         return render_template("account_details.html", error=str(e), account = search_account(sender_account_number))
     except Exception as e:
         return render_template("account_details.html", error="Unexpected error.")
 @app_routes.route("/accounts/receipt/<account_number>", methods = ['GET'])
-def account_receipt(account_number):
+def account_receipt(account_number): 
     
     try:
         transactions = get_account_transactions(account_number)
@@ -125,5 +125,4 @@ def account_receipt(account_number):
         
         return render_template("receipt.html", account=account, transactions=transactions)
     except Exception as e:
-        return render_template("receipt.html", error = "error unexpected")
-    
+        return render_template("receipt.html", error = "error unexpected")    

@@ -57,7 +57,7 @@ def deposit_to_account(account_number, amount):
     
     
     cursor.execute(
-        "INSERT INTO transactions (account_number, operation_type, amount) VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s), 'Deposit', %s)", (account_number, amount))
+        "INSERT INTO transactions (account_id, operation_type, amount) VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s), 'Deposit', %s)", (account_number, amount))
     db.commit()
     db.close()
 def withdraw_from_account(account_number:str, amount:float):
@@ -81,41 +81,55 @@ def withdraw_from_account(account_number:str, amount:float):
         "INSERT INTO transactions (account_id, operation_type, amount) VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s), 'Withdrawal', %s)", (account_number, amount))
     db.commit()
     db.close()
-def transfer_between_accounts(from_account_number:str, to_account_number:str, amount:float):
+def transfer_between_accounts(from_account_number: str, to_account_number: str, amount: float):
+    """
+    Transfer money from one account to another.
+    """
     db = connect_db()
     cursor = db.cursor(dictionary=True)
-    
+
+    # Check if the 'from' account exists
     cursor.execute("SELECT balance FROM bank_accounts WHERE account_number = %s", (from_account_number,))
     from_account = cursor.fetchone()
     if not from_account:
         db.close()
-        raise ValueError("Le compte source n'existe pas")
+        raise ValueError("Le compte source n'existe pas.")
+
+    # Check if the 'to' account exists
     cursor.execute("SELECT balance FROM bank_accounts WHERE account_number = %s", (to_account_number,))
     to_account = cursor.fetchone()
     if not to_account:
         db.close()
-        raise ValueError("Le compte de destination n'existe pas")
-    if amount > from_account["balance"]:
+        raise ValueError("Le compte de destination n'existe pas.")
+
+    # Check if there are sufficient funds in the 'from' account
+    if from_account["balance"] < amount:
         db.close()
-        raise ValueError("Fonds insuffisants pour effectuer le transfert")
-    
-    
-    new_balance_from = from_account["balance"] - amount
-    new_balance_to = to_account["balance"] + amount
-    
-    
-    cursor.execute("UPDATE bank_accounts SET balance = %s WHERE account_number = %s", (new_balance_from, from_account_number))
+        raise ValueError("Fonds insuffisants pour effectuer le transfert.")
+
+    # Perform the transfer (subtract from the 'from' account and add to the 'to' account)
+    new_from_balance = from_account["balance"] - amount
+    new_to_balance = to_account["balance"] + amount
+
+    # Update the balances
+    cursor.execute("UPDATE bank_accounts SET balance = %s WHERE account_number = %s", (new_from_balance, from_account_number))
+    cursor.execute("UPDATE bank_accounts SET balance = %s WHERE account_number = %s", (new_to_balance, to_account_number))
     db.commit()
-    cursor.execute("UPDATE bank_accounts SET balance = %s WHERE account_number = %s", (new_balance_to, to_account_number))
-    db.commit()
-    
+
+    # Log the transaction
     cursor.execute(
-        "INSERT INTO transactions (account_id, operation_type, amount) VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s),'Transfer IN '%s)",(from_account_number, amount))
-    db.commit()
+        "INSERT INTO transactions (account_id, operation_type, amount) "
+        "VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s), 'Transfer Out', %s)",
+        (from_account_number, amount)
+    )
     cursor.execute(
-        "INSERT INTO transactions (account_id, operation_type, amount) VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s),'Transfer OUT '%s)",(to_account_number, amount))
+        "INSERT INTO transactions (account_id, operation_type, amount) "
+        "VALUES ((SELECT id FROM bank_accounts WHERE account_number = %s), 'Transfer In', %s)",
+        (to_account_number, amount)
+    )
     db.commit()
     db.close()
+
 def get_transactions(account_number:str):
     db = connect_db()
     cursor = db.cursor(dictionary=True)
