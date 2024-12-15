@@ -1,0 +1,31 @@
+body{
+    font-family: "Montserrat", serif;
+    padding: 0%;
+}
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    height: 100px;
+}
+.logo_navbar img{
+    height: 100px;
+    width: 100px;
+}
+th{
+    color: red;
+}
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+.MenuNavbar{
+    margin-top: 35px;
+    display: flex;
+    gap: 3rem;
+}
+.image_container img{
+    width: 100%;
+    
+}

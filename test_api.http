@@ -1,0 +1,12 @@
+GET http://127.0.0.1:5000/accounts/search/hello HTTP/1.1
+
+POST http://127.0.0.1:5000/accounts/create HTTP/1.1
+Content-Type: application/json
+
+{
+     "account_number": "626515df",
+    "account_holder": "anas",
+    "balance": 1000
+}
+
+DELETE http://127.0.0.1:5000/accounts/delete/printer HTTP/1.1

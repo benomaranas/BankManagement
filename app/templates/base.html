@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo_navbar">
+            <img src="../static/assets/Cih-bank.png" alt="">
+        </div>
+            <div class="MenuNavbar">
+                
+                    
+                        <li><a href="{{ url_for('app_routes.index') }}">Home</a></li>
+                        <li><a href="{{ url_for('app_routes.list_accounts') }}">Accounts</a></li>
+                    
+                
+            </div>
+    </div>
+    
+        
+   
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Bank Management System</p>
+    </footer>
+</body>
+</html>

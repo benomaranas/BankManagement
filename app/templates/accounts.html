@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Accounts</h2>
+    <a href="#">Make a Deposit</a>
+    
+    <h3>All Accounts</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Account Number</th>
+                <th>Account Holder</th>
+                <th>Balance</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.account_number }}</td>
+                    <td>{{ account.account_holder }}</td>
+                    <td>{{ account.balance }}</td>
+                    <td>{{ account.created_at }}</td>
+                    <td>
+                        <a href="{{ url_for('app_routes.search_account', account_number=account.account_number) }}">View</a> |
+                        <a href="{{ url_for('app_routes.remove_account', account_number=account.account_number) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h3>Create a New Account</h3>
+    <form action="{{ url_for('app_routes.create_account') }}" method="post">
+        <label for="account_number">Account Number:</label>
+        <input type="text" name="account_number" id="account_number" required>
+        
+        <label for="account_holder">Account Holder:</label>
+        <input type="text" name="account_holder" id="account_holder" required>
+        
+        <label for="balance">Balance:</label>
+        <input type="number" name="balance" id="balance" step="0.01" required>
+        
+        <button type="submit">Create Account</button>
+    </form>
+{% endblock %}
