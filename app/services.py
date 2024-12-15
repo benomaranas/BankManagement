@@ -1,4 +1,4 @@
-from app.dal import create_account, get_all_accounts, get_account,delete_account
+from app.dal import create_account, get_all_accounts, get_account,delete_account, deposit_to_account, withdraw_from_account,transfer_between_accounts, get_transactions
 
 
 
@@ -26,11 +26,24 @@ def remove_account(account_number):
         raise ValueError("Compte non trouvé")
     delete_account(account_number)
     
-""" def deposit(account_id, amount):
+def deposit(account_number:str, amount:float):
     
     
     
     if amount <= 0:
         raise ValueError("Le montant doit être positif.")
+    deposit_to_account(account_number, amount)
     # Delegate deposit logic to the DAL layer (implement DAL deposit method as needed).
-    # Example: update_account_balance(account_id, amount) """
+    # Example: update_account_balance(account_id, amount) 
+def withdraw(account_number:str, amount:float):
+    if amount <= 0:
+        raise ValueError("Le montant doit être positif.")
+    withdraw_from_account(account_number,amount)
+
+def transfer(from_account_number:str, to_account_number:str, amount:float):
+    if amount <= 0:
+        raise ValueError("Le montant doit être positif.")
+    transfer_between_accounts(from_account_number, to_account_number, amount)
+def get_account_transactions(account_number:str):
+    
+    return get_transactions(account_number)

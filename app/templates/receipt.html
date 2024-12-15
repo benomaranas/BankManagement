@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="receipt_container">
+    <h2>Account Receipt</h2>
+
+    {% if account %}
+        <h3>Account Information</h3>
+        <table class="account_details_table">
+            <tr>
+                <th>Account Number:</th>
+                <td>{{ account.account_number }}</td>
+            </tr>
+            <tr>
+                <th>Account Holder:</th>
+                <td>{{ account.account_holder }}</td>
+            </tr>
+            <tr>
+                <th>Balance:</th>
+                <td>{{ account.balance }} MAD</td>
+            </tr>
+            <tr>
+                <th>Created At:</th>
+                <td>{{ account.created_at }}</td>
+            </tr>
+        </table>
+
+        <h3>Transaction History</h3>
+        <table class="transaction_history_table">
+            <thead>
+                <tr>
+                    <th>Operation Type</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.operation_type }}</td>
+                        <td>{{ transaction.amount }} MAD</td>
+                        <td>{{ transaction.created_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</div>
+{% endblock %}

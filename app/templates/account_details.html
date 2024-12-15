@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="account_details_container">
+    <h2>Account Details</h2>
+
+    {% if account %}
+        <table class="account_details_table">
+            <tr>
+                <th>Account Number:</th>
+                <td>{{ account.account_number }}</td>
+            </tr>
+            <tr>
+                <th>Account Holder:</th>
+                <td>{{ account.account_holder }}</td>
+            </tr>
+            <tr>
+                <th>Balance:</th>
+                <td>{{ account.balance }}</td>
+            </tr>
+            <tr>
+                <th>Created At:</th>
+                <td>{{ account.created_at }}</td>
+            </tr>
+        </table>
+
+        <h3>Make a Deposit</h3>
+        <form action="{{ url_for('app_routes.deposit_account', account_number=account.account_number) }}" method="POST" class="deposit_form">
+            <label for="amount">Amount to Deposit:</label>
+            <input type="number" name="amount" id="amount" step="0.01" min="0.01" required>
+            <button type="submit">Deposit</button>
+        </form>
+
+        <h3>Make a Withdrawal</h3>
+        <form action="{{ url_for('app_routes.withdraw_account', account_number=account.account_number) }}" method="POST" class="transaction_form">
+            <label for="withdraw_amount">Amount to Withdraw:</label>
+            <input type="number" name="amount" id="withdraw_amount" step="0.01" min="0.01" required>
+            <button type="submit">Withdraw</button>
+        </form>
+
+        <h3>Transfer Money</h3>
+        <form action="{{ url_for('app_routes.transfer_money') }}" method="POST" class="transaction_form">
+            <label for="from_account_number">From Account Number:</label>
+            <input type="text" name="from_account_number" id="from_account_number" value="{{ account.account_number }}" readonly>
+            
+            <label for="to_account_number">To Account Number:</label>
+            <input type="text" name="to_account_number" id="to_account_number" required>
+            
+            <label for="amount">Amount to Transfer:</label>
+            <input type="number" name="amount" id="amount" step="0.01" min="0.01" required>
+            
+            <button type="submit">Transfer</button>
+        </form>
+
+        <h3>View Account Transactions</h3>
+        <a href="{{ url_for('app_routes.account_receipt', account_number=account.account_number) }}">View Receipt</a>
+
+        
+        <a href="{{ url_for('app_routes.list_accounts') }}">Back to Accounts</a>
+    {% elif error %}
+        <p style="color: red;">{{ error }}</p>
+        <a href="{{ url_for('app_routes.list_accounts') }}">Back to Accounts</a>
+    {% endif %}
+</div>
+{% endblock %}

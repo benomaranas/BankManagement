@@ -1,4 +1,4 @@
-GET http://127.0.0.1:5000/accounts/search/hello HTTP/1.1
+GET http://127.0.0.1:5000/accounts/delete/hello HTTP/1.1
 
 POST http://127.0.0.1:5000/accounts/create HTTP/1.1
 Content-Type: application/json
@@ -9,4 +9,8 @@ Content-Type: application/json
     "balance": 1000
 }
 
-DELETE http://127.0.0.1:5000/accounts/delete/printer HTTP/1.1
+DELETE http://127.0.0.1:5000/accounts/delete/hello HTTP/1.1
+POST url HTTP/1.1
+Content-Type: application/json
+
+content

@@ -1,31 +1,265 @@
-body{
-    font-family: "Montserrat", serif;
-    padding: 0%;
+/* Base CSS (base.css) */
+
+/* General body styling */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
 }
-.navbar{
+
+/* Navbar Styling */
+.navbar {
+    background-color: #2c3e50;
+    padding: 20px;
     display: flex;
-    justify-content: space-around;
-    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.logo_navbar img{
-    height: 100px;
-    width: 100px;
+
+.logo_navbar img {
+    width: 150px;
 }
-th{
-    color: red;
-}
-li{
+
+.MenuNavbar {
     list-style-type: none;
-}
-a{
-    text-decoration: none;
-}
-.MenuNavbar{
-    margin-top: 35px;
     display: flex;
-    gap: 3rem;
+    gap: 20px;
 }
-.image_container img{
+
+.MenuNavbar li {
+    display: inline;
+}
+
+/* Styling for all anchor tags (links) */
+a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3498db;
+    transition: width 0.3s ease;
+}
+
+a:hover {
+    color: #2980b9;
+    transform: scale(1.05);
+}
+
+a:hover::after {
     width: 100%;
-    
+}
+
+/* Navbar links */
+.MenuNavbar a {
+    padding: 12px 15px;
+    display: inline-block;
+}
+
+.MenuNavbar a:hover {
+    background-color: #ecf0f1;
+    color: #2980b9;
+    transform: translateY(-3px);
+}
+
+.MenuNavbar a::after {
+    display: none;
+}
+
+/* Main content styling */
+main {
+    padding: 30px;
+}
+
+/* Account Container */
+.account_container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.account_container h2, .account_container h3 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.account_container a {
+    color: #3498db;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: block;
+    font-size: 18px;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.account_container a:hover {
+    color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Account Table */
+.account_content {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.account_content th, .account_content td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.account_content th {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+.account_content tr:hover {
+    background-color: #ecf0f1;
+}
+
+.account_content td a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.account_content td a:hover {
+    color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Account Form Styling */
+.creation_form label, .creation_form input, .creation_form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.creation_form input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.creation_form input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.creation_form button {
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.creation_form button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Account Details Container */
+.account_details_container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.account_details_table th, .account_details_table td,
+.transaction_history_table th, .transaction_history_table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.account_details_table th, .transaction_history_table th {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+.transaction_form label, .transaction_form input, .transaction_form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.transaction_form input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.transaction_form input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.transaction_form button {
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.transaction_form button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Receipt Table Styling */
+.transaction_history_table th, .transaction_history_table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
 }

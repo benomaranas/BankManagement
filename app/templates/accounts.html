@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Accounts</h2>
-    <a href="#">Make a Deposit</a>
+<div class="account_container">
+    
+   
     
     <h3>All Accounts</h3>
-    <table>
+    <table class="account_content">
         <thead>
-            <tr>
+            <tr class="account_table_head">
                 <th>Account Number</th>
                 <th>Account Holder</th>
                 <th>Balance</th>
@@ -17,13 +18,13 @@
         </thead>
         <tbody>
             {% for account in accounts %}
-                <tr>
+                <tr class="account_table_content">
                     <td>{{ account.account_number }}</td>
                     <td>{{ account.account_holder }}</td>
                     <td>{{ account.balance }}</td>
                     <td>{{ account.created_at }}</td>
                     <td>
-                        <a href="{{ url_for('app_routes.search_account', account_number=account.account_number) }}">View</a> |
+                        <a href="{{ url_for('app_routes.view_account', account_number=account.account_number) }}">View</a> 
                         <a href="{{ url_for('app_routes.remove_account', account_number=account.account_number) }}">Delete</a>
                     </td>
                 </tr>
@@ -32,7 +33,7 @@
     </table>
     
     <h3>Create a New Account</h3>
-    <form action="{{ url_for('app_routes.create_account') }}" method="post">
+    <form action="{{ url_for('app_routes.create_account') }}" method="post" class="creation_form">
         <label for="account_number">Account Number:</label>
         <input type="text" name="account_number" id="account_number" required>
         
@@ -44,4 +45,6 @@
         
         <button type="submit">Create Account</button>
     </form>
+</div>
+    
 {% endblock %}
